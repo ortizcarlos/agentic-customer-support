@@ -200,13 +200,13 @@ class OrderManager:
             order_data["items"] = items
             return order_data
 
-    def get_customer_orders(self, customer_id: str, limit: int = None,
+    def get_customer_orders(self, customer_name: str, limit: int = None,
                            status: str = None) -> List[Dict[str, Any]]:
         """
         Get all orders for a specific customer.
 
         Args:
-            customer_id: The customer ID
+            customer_name: The customer name
             limit: Optional limit on number of orders
             status: Optional filter by order status
 
@@ -221,19 +221,19 @@ class OrderManager:
                     SELECT order_id, customer_id, customer_name, total_price, status, created_at,
                            updated_at, estimated_ready_time, conversation_id, metadata
                     FROM orders
-                    WHERE customer_id = ? AND status = ?
+                    WHERE customer_name = ? AND status = ?
                     ORDER BY created_at DESC
                 """
-                params = (customer_id, status)
+                params = (customer_name, status)
             else:
                 query = """
                     SELECT order_id, customer_id, customer_name, total_price, status, created_at,
                            updated_at, estimated_ready_time, conversation_id, metadata
                     FROM orders
-                    WHERE customer_id = ?
+                    WHERE customer_name = ?
                     ORDER BY created_at DESC
                 """
-                params = (customer_id,)
+                params = (customer_name,)
 
             if limit:
                 query += f" LIMIT {limit}"

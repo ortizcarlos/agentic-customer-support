@@ -15,24 +15,24 @@ class OrderStatusInput(TypedDict):
 
 # Tool using the latest OpenAI Agents SDK decorator
 @function_tool
-def get_order_status(customer_id: str) -> dict:
+def get_order_status(customer_name: str) -> dict:
     """
-    Retrieves the status of the most recent order using the customer's ID.
+    Retrieves the status of the most recent order using the customer's name.
     Returns the current status and estimated completion time.
 
     Args:
-        customer_id: The customer's unique identifier
+        customer_name: The customer's name
 
     Returns:
         Dictionary with order status information
     """
     # Get the most recent order for this customer from SQLite
-    order = order_manager.get_customer_last_order(customer_id)
+    order = order_manager.get_customer_last_order(customer_name)
 
     if not order:
         return {
             "found": False,
-            "message": f"No orders found for customer ID: {customer_id}"
+            "message": f"No orders found for customer : {customer_name}"
         }
 
     # Calculate estimated time remaining

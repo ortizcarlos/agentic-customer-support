@@ -95,6 +95,7 @@ class ConversationManager:
                 conn.commit()
                 return True
         except sqlite3.IntegrityError:
+            print("Conversation already exists")
             return False
 
     def add_message(self, conversation_id: str, sender_type: str, content: str,

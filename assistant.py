@@ -1,9 +1,9 @@
 # restaurant_assistant.py
 
 import uuid
-from platform_agents import Runner
+from agents import Runner
 from platform_agents.planner_agent import planner_agent
-from conversation_manager import ConversationManager
+from managers.conversation_manager import ConversationManager
 
 
 
@@ -65,6 +65,8 @@ class RestaurantAssistant:
             self.conversation_id,
             limit=10
         )
+
+        print(f'History: {history}')
 
         # Prepare prompt with history context
         prompt = f"{history}\n\nNew Query: {message}"
