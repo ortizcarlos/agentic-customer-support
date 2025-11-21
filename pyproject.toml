@@ -1,7 +1,7 @@
 [project]
 name = "agentic-customer-support"
 version = "0.1.0"
-description = "Add your description here"
+description = "Multi-agent restaurant customer support system with CLI, REST API, and web UI"
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
@@ -41,3 +41,8 @@ dependencies = [
     "typing-extensions>=4.0.0",
     "wikipedia>=1.4.0",
 ]
+
+[project.optional-dependencies]
+web = ["gradio>=5.22.0", "httpx>=0.28.1"]
+api = ["fastapi>=0.115.0", "uvicorn>=0.34.0"]
+cli = ["tabulate>=0.9.0"]

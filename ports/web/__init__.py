@@ -1,5 +1,5 @@
 """
-Input ports - API entry points (REST, WebSocket, etc.)
+Web ports - API entry points and web interfaces
 """
 
 from .fastapi_adapter import app
