@@ -4,10 +4,7 @@ from typing import TypedDict
 from agents import function_tool
 from datetime import datetime
 
-from managers.order_manager import OrderManager
-
-# Initialize OrderManager for SQLite persistence
-order_manager = OrderManager()
+from order_manager_init import order_manager
 
 # Input schema for the tool
 class OrderStatusInput(TypedDict):
@@ -59,5 +56,6 @@ def get_order_status(customer_name: str) -> dict:
         "status": order["status"],
         "estimated_time": estimated_time,
         "total_price": order["total_price"],
+        "items": order["items"],
         "items_count": len(order.get("items", []))
     }

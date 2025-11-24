@@ -5,11 +5,9 @@ from agents import function_tool
 from datetime import datetime, timedelta
 import uuid
 
-from managers.order_manager import OrderManager, OrderStatus
+from managers.order_manager import OrderStatus
+from order_manager_init import order_manager
 from utils.constants import MENU_PRICES
-
-# Initialize OrderManager for SQLite persistence
-order_manager = OrderManager()
 
 # Order item schema
 class OrderItem(TypedDict):

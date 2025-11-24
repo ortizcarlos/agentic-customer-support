@@ -270,7 +270,7 @@ class OrderManager:
             Last order details or None
         """
         orders = self.get_customer_orders(customer_id, limit=1)
-        return orders[0] if orders else None
+        return self.get_order(orders[0]["order_id"]) if orders else None
 
     def update_order_status(self, order_id: str, status: OrderStatus) -> bool:
         """

@@ -16,7 +16,7 @@ class RestaurantAssistant:
     """
 
     def __init__(self, conversation_id: str = None, customer_id: str = None,
-                 customer_name: str = None, db_path: str = "conversations.db"):
+                 customer_name: str = None):
         """
         Initialize the RestaurantAssistant with conversation management.
 
@@ -27,19 +27,12 @@ class RestaurantAssistant:
             db_path: Path to the SQLite database file.
         """
         self.planner = planner_agent  # The orchestrator
-        self.conversation_manager = ConversationManager(db_path)
+        self.conversation_manager = ConversationManager()
 
         # Use provided conversation_id or generate a new one
-        self.conversation_id = conversation_id or f"conv_{uuid.uuid4().hex[:8]}"
+        self.conversation_id = conversation_id
         self.customer_id = customer_id
         self.customer_name = customer_name
-
-        # Create conversation in database if it doesn't exist
-        self.conversation_manager.create_conversation(
-            self.conversation_id,
-            customer_id=customer_id,
-            customer_name=customer_name
-        )
 
     async def run(self, message: str) -> str:
         """
@@ -65,6 +58,8 @@ class RestaurantAssistant:
             self.conversation_id,
             limit=10
         )
+
+        print(f'History: {history}')
 
         # Prepare prompt with history context
         prompt = f"{history}\n\nNew Query: {message}"

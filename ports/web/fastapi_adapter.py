@@ -12,12 +12,16 @@ from datetime import datetime
 import uuid
 import sys
 from pathlib import Path
+from dotenv import load_dotenv
 
 # Add project root to path
 sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
-from assistant import RestaurantAssistant
-from managers.conversation_manager import ConversationManager
+# Load environment variables
+load_dotenv()
+
+from core.assistant import RestaurantAssistant
+from managers.conversation_manager_factory import ConversationManagerFactory
 from ports.web.models import UserMessage, AssistantResponse
 
 # Configure logging
@@ -33,7 +37,7 @@ async def lifespan(app: FastAPI):
     """Lifespan context manager for startup/shutdown events"""
     global _conversation_manager
     logger.info("Starting Restaurant Assistant API...")
-    _conversation_manager = ConversationManager()
+    _conversation_manager = ConversationManagerFactory.create()
     yield
     logger.info("Shutting down Restaurant Assistant API...")
 
